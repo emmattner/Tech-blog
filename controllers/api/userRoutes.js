@@ -65,3 +65,38 @@ router.post("/login", async (req, res) => {
         });
     });
 });
+
+//Logout
+router.post("/logout", withAuth, (req, res) => {
+    if (req.session.loggedIn) {
+        req.session.destroy(() => {
+            res.status(204).end();
+        });
+    } else {
+        res.status(404).end();
+    }
+});
+
+//Allows Update on user
+router.put("/:id", withAuth, async (req, res) => {
+    const user = awaitUser
+        .update(req.body, {
+            individualHooks: true,
+            where: {
+                id: req.params.id,
+            },
+        })
+        .then((dbUserData) => {
+            if (!dbUserData[0]) {
+                res
+                    .status(404)
+                    .json({ message: "Incorrect user id, please try again" });
+                return;
+            }
+            res.json(dbUserData);
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).json(err);
+        });
+});
