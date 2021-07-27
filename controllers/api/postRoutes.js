@@ -33,3 +33,17 @@ router.get("/", async (req, res) => {
             res.status(500).json(err);
         });
 });
+
+// this allows users to create a post
+router.post("/", withAuth, async (req, res) => {
+    const newPost = await Post.create({
+        title: req.body.title,
+        post_text: req.body.post_text,
+        user_id: req.session.user_id,
+    })
+        .then((newPost) => res.json(newPost))
+        .catch((err) => {
+            console.log(err);
+            res.status(500).json(err);
+        });
+});
