@@ -11,6 +11,7 @@ router.get("/", async (req, res) => {
         });
 });
 
+// This will allow users to create a new comment
 router.post("/", withAuth, async (req, res) => {
     const comment = await Comment.create({
         post_id: req.body.post_id,
@@ -22,5 +23,25 @@ router.post("/", withAuth, async (req, res) => {
             console.log(err);
             res.status(500).json(err);
         });
-}); 
+});
+
+// This will update comments
+router.put("/", withAuth, async (req, res) => {
+    const comment = await Comment.create(
+        {
+            post_id: req.body.post_id,
+            comment_text: req.body.comment_text,
+        },
+        {
+            where: {
+                id: req.params.id,
+            },
+        }
+    )
+        .then((dbCommentData) => res.json(dbCommentData))
+        .catch((err) => {
+            console.log(err);
+            res.status(500).json(err);
+        });
+});
 
