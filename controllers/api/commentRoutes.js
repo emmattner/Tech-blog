@@ -45,6 +45,7 @@ router.put("/", withAuth, async (req, res) => {
         });
 });
 
+//this will allow users to delete comments
 router.delete("/:id", withAuth, async (req, res) => {
     const comment = await Comment.destroy({
         where: {
