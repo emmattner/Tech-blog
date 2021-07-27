@@ -74,6 +74,7 @@ router.put("/:id", withAuth, async (req, res) => {
         });
 });
 
+//allows user to delete a post
 router.delete("/:id", withAuth, async (req, res) => {
     const deletePost = await Post.destroy({
         where: {
