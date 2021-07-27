@@ -122,3 +122,26 @@ router.delete("/:id", withAuth, async (req, res) => {
             res.status(500).json(err);
         });
 });
+
+//displays account client side
+router.get("/dashboard", async (req, res) => {
+    const user = await User.findOne({
+        where: { email: req.body.email },
+        attributes: { exclude: ["password"] },
+    })
+        .then((dbUserData) => {
+            if (!dbUserData) {
+                res
+                    .status(404)
+                    .json({ message: "Incorrect user id, please try again" });
+                return;
+            }
+            res.json(dbUserData);
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).json(err);
+        });
+});
+
+module.exports = router;
