@@ -100,3 +100,25 @@ router.put("/:id", withAuth, async (req, res) => {
             res.status(500).json(err);
         });
 });
+
+//Delete the user
+router.delete("/:id", withAuth, async (req, res) => {
+    const user = await User.destroy({
+        where: {
+            id: req.params.id,
+        },
+    })
+        .then((dbUserData) => {
+            if (!dbUserData) {
+                res
+                    .status(404)
+                    .json({ message: "Incorrect user id, please try again" });
+                return;
+            }
+            res.json(dbUserData);
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).json(err);
+        });
+});
