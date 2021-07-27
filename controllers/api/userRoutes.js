@@ -32,3 +32,36 @@ router.post("/", async (req, res) => {
             });
         });
 });
+
+//Log in and to verify user
+router.post("/login", async (req, res) => {
+    const user = await User.findOne({
+        where: {
+            email: req.body.email,
+        },
+    }).then((dbUserData) => {
+        if (!dbUserData) {
+            res
+                .status(400)
+                .json({ message: "Incorrect email or password, please try again" });
+            return;
+        }
+        // ValidPassword verifies user password
+        const validPassword = dbUserData.checkPassword(req.body.password);
+
+        if (!validPassword) {
+            res
+                .status(400)
+                .json({ message: "Incorrect email or password, please try again" });
+            return;
+        }
+        req.session.save(() => {
+            // user data stored during session
+            req.session.user_id = dbUserData.id;
+            req.session.username = dbUserData.username;
+            req.session.loggedIn = true;
+
+            res.json({ user: dbUserData, message: "You are now logged in!" });
+        });
+    });
+});
