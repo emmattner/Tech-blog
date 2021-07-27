@@ -14,3 +14,21 @@ router.get("/", async (req, res) => {
         });
 });
 
+//Creates a new user
+router.post("/", async (req, res) => {
+    const user = await User.create({
+        username: req.body.username,
+        email: req.body.email,
+        password: req.body.password,
+    })
+        // UserData stores user login during session
+        .then((dbUserData) => {
+            req.session.save(() => {
+                req.session.user_id = dbUserData.id;
+                req.session.username = dbUserData.username;
+                req.session.loggedIn = true;
+
+                res.json(dbUserData);
+            });
+        });
+});
