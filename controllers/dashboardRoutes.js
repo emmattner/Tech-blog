@@ -63,3 +63,10 @@ router.get("/edit/:id", withAuth, async (req, res) => {
             res.status(500).json(err);
         });
 });
+
+router.get("./newPost", (req, res) => {
+    res.render("newPost");
+});
+
+module.exports = router;
+
