@@ -73,3 +73,24 @@ router.put("/:id", withAuth, async (req, res) => {
             res.status(500).json(err);
         });
 });
+
+router.delete("/:id", withAuth, async (req, res) => {
+    const deletePost = await Post.destroy({
+        where: {
+            id: req.params.id,
+        },
+    })
+        .then((deletePost) => {
+            if (!deletePost) {
+                res.status(404).json({ message: "No post found with this id" });
+                return;
+            }
+            res.json(deletePost);
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).json(err);
+        });
+});
+
+module.exports = router;
