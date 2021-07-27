@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const { Comment } = require("../../models");
-const withAuth = require("../../utils/auth");
+const withAuth = require("../../utils/withAuth");
 
 router.get("/", async (req, res) => {
     const comment = await Comment.findAll({})
@@ -10,4 +10,17 @@ router.get("/", async (req, res) => {
             res.status(500).json(err);
         });
 });
+
+router.post("/", withAuth, async (req, res) => {
+    const comment = await Comment.create({
+        post_id: req.body.post_id,
+        comment_text: req.body.comment_text,
+        user_id: req.session.user_id,
+    })
+        .then((dbCommentData) => res.json(dbCommentData))
+        .catch((err) => {
+            console.log(err);
+            res.status(500).json(err);
+        });
+}); 
 
