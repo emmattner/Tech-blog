@@ -47,3 +47,29 @@ router.post("/", withAuth, async (req, res) => {
             res.status(500).json(err);
         });
 });
+
+//Allows user to update posts
+router.put("/:id", withAuth, async (req, res) => {
+    const updatePost = await Post.update(
+        {
+            title: req.body.title,
+            post_text: req.body.post_text,
+        },
+        {
+            where: {
+                id: req.params.id,
+            },
+        }
+    )
+        .then((updatePost) => {
+            if (!updatePost) {
+                res.status(404).json({ message: "No post found with this id" });
+                return;
+            }
+            res.json(updatePost);
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).json(err);
+        });
+});
