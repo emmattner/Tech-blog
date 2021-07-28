@@ -16,3 +16,19 @@
         </div>
     </form>
 </article>
+
+<form class="comment-form">
+    <div>
+        <textarea name="comment-body"></textarea>
+    </div>
+
+    <div>
+        <button type="submit">Add Comment</button>
+    </div>
+</form>
+
+{{> comment post.comment}}
+
+<script src="/js/editPost.js"></script>
+<script src="/js/deletePost.js"></script>
+<script src="/js/comment.js"></script>
