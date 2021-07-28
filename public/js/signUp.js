@@ -13,5 +13,17 @@ const signupFormHandler = async (event) => {
             body: JSON.stringify({ username, email, password }),
             headers: { "Content-Type": "application/json" },
         });
+
+        if (response.ok) {
+            // If successful, redirect the browser to the dashboard page
+            console.log("success");
+            document.location.replace("/dashboard");
+        } else {
+            alert(response.statusText);
+        }
     }
 };
+
+document
+    .querySelector(".signup-form")
+    .addEventListener("submit", signupFormHandler);
