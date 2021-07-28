@@ -29,4 +29,8 @@ const editFormHandler = async (event) => {
             alert(response.statusText);
         }
     }
-};    
+};
+
+document
+    .querySelector(".edit-post-form")
+    .addEventListener("submit", editFormHandler);
