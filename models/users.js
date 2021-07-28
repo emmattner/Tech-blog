@@ -39,3 +39,30 @@ User.init(
         },
     },
 
+    // Hash password automatically before User is created / updated
+    {
+        hooks: {
+            async beforeCreate(newUserData) {
+                newUserData.password = await bcrypt.hashSync(
+                    newUserData.password,
+                    bcrypt.genSaltSync(10)
+                );
+                return newUserData;
+            },
+            async beforeUpdate(updateUserData) {
+                updateUserData.password = await bcrypt.hashSync(
+                    updatedUserData.password,
+                    bcrypt.genSaltSync(10)
+                );
+                return updateUserData;
+            },
+        },
+        sequelize,
+        timestamps: false,
+        freezeTableName: true,
+        underscored: true,
+        modelName: "user",
+    }
+);
+
+module.exports = User;
