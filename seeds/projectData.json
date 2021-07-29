@@ -1,0 +1,17 @@
+[
+    {
+        "title": "This is the first blog post",
+        "content": "This post was seeded",
+        "user_id": 1
+    },
+    {
+        "title": "This is a second blog post",
+        "content": "This post is about javascript fundamentals!",
+        "user_id": 2
+    },
+    {
+        "title": "This is a third blog post",
+        "content": "This post is about how to create a react app",
+        "user_id": 3
+    }
+]
