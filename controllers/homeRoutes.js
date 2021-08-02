@@ -3,6 +3,7 @@ const { Post, User, Comment } = require("../models");
 
 router.get("/", async (req, res) => {
     console.log(req.session);
+    console.log('home');
 
     const post = await Post.findAll({
         attributes: ["id", "post_text", "title", "created_at"],
@@ -24,6 +25,7 @@ router.get("/", async (req, res) => {
         .then((dbPostData) => {
             const posts = dbPostData.map((post) => post.get({ plain: true }));
             // Pass serialized data and session flag into template
+            console.log(posts);
             res.render("dashboard", { posts, loggedIn: req.session.loggedIn });
         })
         .catch((err) => {

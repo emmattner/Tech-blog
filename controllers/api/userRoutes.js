@@ -5,7 +5,7 @@ const withAuth = require("../../utils/withAuth");
 //Allows users to access users
 router.get("/", async (req, res) => {
     const user = await User.findAll({
-        attributes: { exclude: ["[password"] },
+        attributes: { exclude: ["password"] },
     })
         .then((dbUserData) => res.json(dbUserData))
         .catch((err) => {
@@ -23,6 +23,7 @@ router.post("/", async (req, res) => {
     })
         // UserData stores user login during session
         .then((dbUserData) => {
+            console.log(dbUserData);
             req.session.save(() => {
                 req.session.user_id = dbUserData.id;
                 req.session.username = dbUserData.username;
@@ -47,7 +48,7 @@ router.post("/login", async (req, res) => {
             return;
         }
         // ValidPassword verifies user password
-        const validPassword = dbUserData.checkPassword(req.body.password);
+        const validPassword = dbUserData.validPassword(req.body.password);
 
         if (!validPassword) {
             res
