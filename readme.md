@@ -38,6 +38,7 @@ Emma Mattner
 
 
 ## Deployment Link 
+https://emmas-tech-blog.herokuapp.com/
 
 
 
