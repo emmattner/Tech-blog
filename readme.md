@@ -29,6 +29,9 @@ The application is helped by using the following dependencies:
 ## Application ScreenShots
 <img width="803" alt="tech-blog" src="https://user-images.githubusercontent.com/78684306/127837920-8a2b2b8a-f3b0-4700-aa85-bf1b86a76839.png">
 
+<img width="714" alt="tech-blog2" src="https://user-images.githubusercontent.com/78684306/127838734-0a838bdd-4df0-4a72-8d77-8928dd21252b.png">
+
+
 
 ## Contributors
 Emma Mattner
